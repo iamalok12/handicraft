@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:handicraft/confirmOrderViaCart.dart';
+import 'package:handicraft/customer_screen/confirmOrderViaCart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:handicraft/splashScreen.dart';

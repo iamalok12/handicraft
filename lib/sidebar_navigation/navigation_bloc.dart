@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
-import 'package:handicraft/pages/customerhome.dart';
-import 'package:handicraft/pages/myaccountspage.dart';
-import 'package:handicraft/pages/myorderspage.dart';
+import 'package:handicraft/customer_screen/customerhome.dart';
+import 'package:handicraft/customer_screen/myaccountspage.dart';
+import 'package:handicraft/customer_screen/myorderspage.dart';
 
 enum NavigationEvents{
   HomePageClickedEvent,

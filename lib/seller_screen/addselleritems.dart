@@ -1,6 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:handicraft/sellerhome.dart';
+import 'package:handicraft/seller_screen/sellerhome.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

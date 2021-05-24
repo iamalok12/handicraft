@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:handicraft/order_succesfull.dart';
-import 'package:handicraft/pages/customerhome.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:handicraft/customer_screen/customerhome.dart';
 import 'package:handicraft/sidebar/sidebar_layout.dart';
 import 'package:handicraft/splashScreen.dart';
 import 'package:http/http.dart' as http;
@@ -33,9 +33,9 @@ class _DeliveryPageState extends State<DeliveryPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xff44a7c4),
+      backgroundColor: Color(0xff282C31),
       appBar: AppBar(
-        backgroundColor: Color(0xff44a7c4),
+        backgroundColor: Color(0xff282C31),
         // title: Text("Delivery Address"),
         elevation: 0,
         leading: CloseButton(),
@@ -47,8 +47,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text("Shipping Address",
-                style: Theme.of(context).textTheme.headline5.copyWith(
-                    color: Colors.white, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.koHo(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 26)
               ),
             ),
             SizedBox(
@@ -97,11 +96,11 @@ class _DeliveryPageState extends State<DeliveryPage> {
                                       ),
                                     ),
                                     filled: true,
-                                    prefixIcon: Icon(Icons.pin_drop,color: Color(0xff44a7c4),),
+                                    prefixIcon: Icon(Icons.pin_drop,color: Colors.white),
                                     // icon: Icon(icon,color: Colors.white,),
-                                    hintStyle: TextStyle(color: Colors.grey[800]),
+                                    hintStyle: TextStyle(color: Colors.white),
                                     hintText: "PinCode",
-                                    fillColor: Colors.white
+                                    fillColor: Colors.grey
                                 ),
                                 validator: (title) =>
                                 title.length == 6 && title.isNotEmpty && isNumeric(title) && titleController1.text.isNotEmpty && titleController2.text.isNotEmpty? null : "Please check your PinCode",
@@ -226,11 +225,11 @@ class TextField1 extends StatelessWidget {
               ),
             ),
             filled: true,
-            prefixIcon: Icon(icon,color: Color(0xff44a7c4),),
+            prefixIcon: Icon(icon,color: Colors.white),
             // icon: Icon(icon,color: Colors.white,),
-            hintStyle: TextStyle(color: Colors.grey[800]),
+            hintStyle: TextStyle(color: Colors.white),
             hintText: title,
-            fillColor: Colors.white
+            fillColor: Colors.grey
         ),
         validator: (title) =>
         title != null && title.isEmpty ? "This cannot be empty" : null,

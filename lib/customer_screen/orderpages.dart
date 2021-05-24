@@ -3,7 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:handicraft/delivery_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:handicraft/customer_screen/delivery_page.dart';
 import 'package:handicraft/sidebar_navigation/navigation_bloc.dart';
 import 'package:handicraft/splashScreen.dart';
 
@@ -23,9 +24,9 @@ class _OrdersPagesState extends State<OrdersPages> {
     Size size = MediaQuery.of(context).size;
     double size2 =  size.width * 0.6;
     return Scaffold(
-      backgroundColor: Color(0xff44a7c4),
+      backgroundColor: Colors.black87,
       appBar: AppBar(
-        backgroundColor: Color(0xff44a7c4),
+        backgroundColor: Colors.black87,
         elevation: 0,
         leading: CloseButton(),
 
@@ -42,7 +43,7 @@ class _OrdersPagesState extends State<OrdersPages> {
                     padding: EdgeInsets.only(top: size.height *0.08, left: 15,right: 15),
                     // height: size.height * 0.55,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Color(0xff282C31),
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(24),topRight: Radius.circular(24))
                     ),
                     child: Column(
@@ -50,8 +51,7 @@ class _OrdersPagesState extends State<OrdersPages> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Description",
-                          style: Theme.of(context).textTheme.headline5.copyWith(
-                              color: Colors.black, fontWeight: FontWeight.bold),
+                            style: GoogleFonts.koHo(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 30)
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 10, bottom: 20),
@@ -61,13 +61,13 @@ class _OrdersPagesState extends State<OrdersPages> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(18),
                               border: Border.all(
-                                color: Colors.black,
+                                color: Colors.grey,
                               )
                           ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             child: Text(widget.desc,
-                              style: TextStyle(height: 1.5),
+                              style: TextStyle(height: 1.5,color: Colors.white),
                             ),
                           ),
                         ),
@@ -81,11 +81,11 @@ class _OrdersPagesState extends State<OrdersPages> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(18),
                                 border: Border.all(
-                                  color: Colors.black,
+                                  color: Colors.grey,
                                 )
                               ),
                               child: IconButton(
-                                color: Color(0xff44a7c4),
+                                color: Colors.white,
                                 icon: Icon(Icons.add_shopping_cart),
                                 onPressed: (){
                                 void addToCart()async{
@@ -113,7 +113,7 @@ class _OrdersPagesState extends State<OrdersPages> {
                                   child: ElevatedButton(
                                       style: ButtonStyle(
                                         // padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: size.width * 0.3)),
-                                        backgroundColor: MaterialStateProperty.all(Color(0xff44a7c4)),
+                                        backgroundColor: MaterialStateProperty.all(Colors.indigo),
                                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                               RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(18.0),
@@ -139,8 +139,7 @@ class _OrdersPagesState extends State<OrdersPages> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(widget.title,
-                          style: Theme.of(context).textTheme.headline4.copyWith(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                            style: GoogleFonts.koHo(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 36)
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,7 +147,7 @@ class _OrdersPagesState extends State<OrdersPages> {
                             RichText(
                                 text: TextSpan(
                                   children: [
-                                    TextSpan(text: "Price\n"),
+                                    TextSpan(text: "Price\n", style: GoogleFonts.koHo(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 16)),
                                     TextSpan(
                                       text: "₹ " + widget.price,
                                       style: Theme.of(context).textTheme.headline4.copyWith(
@@ -163,8 +162,8 @@ class _OrdersPagesState extends State<OrdersPages> {
                             //   width: size.width * 0.1,
                             // ),
                             Container(
-                              height: size.height * 0.35,
                               width: size.width * 0.5,
+                              height: size.width * 0.5,
                               decoration: BoxDecoration(
                                 // shape: BoxShape.circle,
                                 color: Colors.black,

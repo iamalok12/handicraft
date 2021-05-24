@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:handicraft/pages/customerhome.dart';
+import 'package:handicraft/customer_screen/customerhome.dart';
 import 'package:handicraft/sidebar/sidebar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:handicraft/sidebar_navigation/navigation_bloc.dart';

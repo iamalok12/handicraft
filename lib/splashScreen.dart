@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:handicraft/login.dart';
-import 'package:handicraft/sellerhome.dart';
-import 'package:handicraft/pages/customerhome.dart';
+import 'package:handicraft/auth/login.dart';
+import 'package:handicraft/seller_screen/sellerhome.dart';
+import 'package:handicraft/customer_screen/customerhome.dart';
 import 'package:handicraft/sidebar/sidebar_layout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
