@@ -13,20 +13,35 @@ class OrdersPage extends StatefulWidget  with NavigationStates{
 
 class _OrdersPageState extends State<OrdersPage> {
   List<MyOrder> list=[];
-
+  var sellerMobileNumber;
+  var imageUrl;
+  bool process=true;
   Future<void> getMyOrders()async{
     list.clear();
     var data=await FirebaseFirestore.instance.collection("Orders").where("customer",isEqualTo: App.sharedPreferences.get("email")).get();
     for(int i=0;i<data.docs.length;i++){
-      var sellermob=await FirebaseFirestore.instance.collection("users").doc(data.docs[i].data()["seller"]).get();
-      var sellerMobileNumber=sellermob.data()["phone"];
-      var image=await FirebaseFirestore.instance.collection("Items").doc(data.docs[i].data()["itemId"]).get();
-      var imageUrl=image.data()["imageURL"];
-      MyOrder myorder=MyOrder(data.docs[i].id, data.docs[i].data()["title"], data.docs[i].data()["time"], data.docs[i].data()["price"], data.docs[i].data()["status"], imageUrl, data.docs[i].data()["seller"], sellerMobileNumber);
-      list.add(myorder);
+
+      Future<void> fetchNumber()async{
+        var sellermob=await FirebaseFirestore.instance.collection("users").doc(data.docs[i].data()["seller"]).get();
+        setState(() {
+          sellerMobileNumber=sellermob.data()["phone"];
+        });
+      }
+      Future<void> fetchImageUrl()async{
+        var image=await FirebaseFirestore.instance.collection("Items").doc(data.docs[i].data()["itemId"]).get();
+        setState(() {
+          imageUrl=image.data()["imageURL"];
+        });
+      }
+      Future.wait([fetchNumber(),fetchImageUrl()]).then((value){
+        process=false;
+        MyOrder myorder=MyOrder(data.docs[i].id, data.docs[i].data()["title"], data.docs[i].data()["time"], data.docs[i].data()["price"], data.docs[i].data()["status"], imageUrl, data.docs[i].data()["seller"], sellerMobileNumber);
+        list.add(myorder);
+        setState(() {
+        });
+      });
     }
-    setState(() {
-    });
+
   }
   @override
   void initState() {
@@ -66,8 +81,8 @@ class _OrdersPageState extends State<OrdersPage> {
               ),
             ),
             Expanded(
-                child:list.length==0?
-                Center(child: Text("No Orders")):ListView.builder(itemCount: list.length,
+                child:process==true?
+                Center(child: CircularProgressIndicator()):ListView.builder(itemCount: list.length,
                   itemBuilder: (_,index){
                     return OrdersContainer(context, list[index].orderNo, list[index].itemName, list[index].totalAmount, list[index].status, list[index].date,list[index].imageUrl,list[index].sellerID,list[index].sellerPhone);
                   },

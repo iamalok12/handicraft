@@ -210,7 +210,6 @@ class _ConfirmViaCartState extends State<ConfirmViaCart> {
 
   void confirmOrder() async {
     await getCartItems();
-
     setState(() {});
     int flag = 1;
     for (int i = 0; i < cartItems.length; i++) {
