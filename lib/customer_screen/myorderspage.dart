@@ -17,9 +17,16 @@ class _OrdersPageState extends State<OrdersPage> {
   var sellerMobileNumber;
   var imageUrl;
   bool process=true;
+  String status="notfound";
   Future<void> getMyOrders()async{
     list.clear();
     var data=await FirebaseFirestore.instance.collection("Orders").where("customer",isEqualTo: App.sharedPreferences.get("email")).get();
+    if(data.size==0){
+      print("cart empty");
+      setState(() {
+        status="empty";
+      });
+    }
     for(int i=0;i<data.docs.length;i++){
 
       Future<void> fetchNumber()async{
@@ -35,7 +42,10 @@ class _OrdersPageState extends State<OrdersPage> {
         });
       }
       Future.wait([fetchNumber(),fetchImageUrl()]).then((value){
-        process=false;
+        setState(() {
+          status="found";
+        });
+        // process=false;
         MyOrder myorder=MyOrder(data.docs[i].id, data.docs[i].data()["title"], data.docs[i].data()["time"], data.docs[i].data()["price"], data.docs[i].data()["status"], imageUrl, data.docs[i].data()["seller"], sellerMobileNumber);
         list.add(myorder);
         setState(() {
@@ -48,6 +58,22 @@ class _OrdersPageState extends State<OrdersPage> {
   void initState() {
     super.initState();
     getMyOrders();
+  }
+
+  Widget MyOrders(){
+    if(status=="notfound"){
+      return Center(child: CircularProgressIndicator());
+    }
+    else if(status=="empty"){
+      return Center(child: Text("No Orders",style: TextStyle(color: Colors.white),));
+    }
+    else{
+      return ListView.builder(itemCount: list.length,
+        itemBuilder: (_,index){
+          return OrdersContainer(context, list[index].orderNo, list[index].itemName, list[index].totalAmount, list[index].status, list[index].date,list[index].imageUrl,list[index].sellerID,list[index].sellerPhone);
+        },
+      );
+    }
   }
 
   @override
@@ -84,12 +110,7 @@ class _OrdersPageState extends State<OrdersPage> {
             ),
 
             Expanded(
-                child:process==true?
-                Center(child: Center(child: CircularProgressIndicator())):ListView.builder(itemCount: list.length,
-                  itemBuilder: (_,index){
-                    return OrdersContainer(context, list[index].orderNo, list[index].itemName, list[index].totalAmount, list[index].status, list[index].date,list[index].imageUrl,list[index].sellerID,list[index].sellerPhone);
-                  },
-                )
+                child:MyOrders()
             ),
           ],
         ),
