@@ -54,6 +54,7 @@ class _OrdersArrivedState extends State<OrdersArrived> {
 
       list.add(item);
     }
+    if (!mounted) return;
     setState(() {});
     print(list.length);
   }

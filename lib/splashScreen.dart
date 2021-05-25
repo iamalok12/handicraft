@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:handicraft/auth/login.dart';
+import 'package:handicraft/betaPage.dart';
 import 'package:handicraft/seller_screen/sellerhome.dart';
 import 'package:handicraft/customer_screen/customerhome.dart';
 import 'package:handicraft/sidebar/sidebar_layout.dart';
@@ -25,28 +26,34 @@ class _SplashScreenState extends State<SplashScreen> {
     displaySplash();
   }
   void displaySplash()async{
-    Timer(Duration(seconds: 5),()async{
-      if(await _googleSignIn.isSignedIn()){
-        String type=App.sharedPreferences.getString("type");
-        if(type=='seller'){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>(SellerHome())));
-        }
-        else if(type=='customer'){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>(SidebarLayout())));
+    var status=await FirebaseFirestore.instance.collection("testing").doc("beta").get();
+    if(status.data()["active"]=="no"){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BetaTesting()));
+    }
+    else{
+      Timer(Duration(seconds: 5),()async{
+        if(await _googleSignIn.isSignedIn()){
+          String type=App.sharedPreferences.getString("type");
+          if(type=='seller'){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>(SellerHome())));
+          }
+          else if(type=='customer'){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>(SidebarLayout())));
+          }
+          else{
+            await _googleSignIn.signOut();
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>(Login())));
+            print("something wrong");
+          }
         }
         else{
-          await _googleSignIn.signOut();
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>(Login())));
-          print("something wrong");
-        }
-      }
-      else{
 
-        await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>(Login())));
-        print("user null");
-        print(type);
-      }
-    });
+          await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>(Login())));
+          print("user null");
+          print(type);
+        }
+      });
+    }
   }
 
   @override

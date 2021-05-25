@@ -55,10 +55,6 @@ class _OrdersPageState extends State<OrdersPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black87,
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: Colors.black,
-      // ),
       body: RefreshIndicator(
         onRefresh: getMyOrders,
         child: Column(
@@ -86,17 +82,10 @@ class _OrdersPageState extends State<OrdersPage> {
                 ),
               ),
             ),
-            // Align(
-            //   alignment: Alignment(1,-9),
-            //   child: Container(
-            //     width: size.width * 0.5,
-            //     height: 5,
-            //     color: Colors.lightGreenAccent,
-            //   ),
-            // ),
+
             Expanded(
                 child:process==true?
-                Center(child: CircularProgressIndicator()):ListView.builder(itemCount: list.length,
+                Center(child: Center(child: CircularProgressIndicator())):ListView.builder(itemCount: list.length,
                   itemBuilder: (_,index){
                     return OrdersContainer(context, list[index].orderNo, list[index].itemName, list[index].totalAmount, list[index].status, list[index].date,list[index].imageUrl,list[index].sellerID,list[index].sellerPhone);
                   },
