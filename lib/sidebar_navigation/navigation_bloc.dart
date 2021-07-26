@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:handicraft/customer_screen/customerhome.dart';
-import 'package:handicraft/customer_screen/myaccountspage.dart';
 import 'package:handicraft/customer_screen/myorderspage.dart';
 
 enum NavigationEvents{
@@ -22,9 +21,6 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates>{
     switch(event){
       case NavigationEvents.HomePageClickedEvent:
         yield CustomerHome();
-        break;
-      case NavigationEvents.MyAccountsClickedEvent:
-        yield AccountsPage();
         break;
       case NavigationEvents.MyOrdersClickedEvent:
         yield OrdersPage();

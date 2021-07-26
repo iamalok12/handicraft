@@ -80,34 +80,16 @@ class _OrdersPageState extends State<OrdersPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black87,
+      appBar: AppBar(
+        backgroundColor: Color(0xff2c98f0),
+        title: Text("My Orders"),
+        centerTitle: true,
+      ),
+      backgroundColor: Colors.white,
       body: RefreshIndicator(
         onRefresh: getMyOrders,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20,top: 40),
-              child: Align(
-                alignment: Alignment(0.22,-1),
-                child: Container(
-                  padding: EdgeInsets.only(left: 50,right: 50,top: 10,bottom: 10),
-                  decoration: BoxDecoration(
-                    color: Color(0xff282C31),
-                    borderRadius: BorderRadius.all(Radius.circular(36)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black,
-                        offset: Offset(0.0, 5),
-                        blurRadius: 6.0,
-                      ),
-                    ],
-                  ),
-                  child: Text("My Orders",
-                    style: GoogleFonts.koHo(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 40)
-                  ),
-                ),
-              ),
-            ),
 
             Expanded(
                 child:MyOrders()

@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:handicraft/seller_screen/sellerhome.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -25,7 +26,20 @@ class _AddItemsBySellerState extends State<AddItemsBySeller> {
 
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff2c98f0),
+        title: Text(
+          "Add Items",
+          style: GoogleFonts.koHo(
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2,
+              fontSize: 30,
+              color: Colors.white),
+        ),
+        centerTitle: true,
+      ),
       backgroundColor: Colors.white,
       body: processing==true?Center(child: CircularProgressIndicator()):SafeArea(
         child:SingleChildScrollView(
@@ -33,13 +47,14 @@ class _AddItemsBySellerState extends State<AddItemsBySeller> {
             key: _formKey,
             child: Column(
               children: [
+                SizedBox(height: 10,),
                 Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.black)
                   ),
                   height: 200,
                   width: 200,
-                  child: _imageFile==null?Text("Add Image"):Image.file(_imageFile),
+                  child: _imageFile==null?Icon(Icons.add_a_photo_outlined,size: 50,):Image.file(_imageFile),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -85,35 +100,61 @@ class _AddItemsBySellerState extends State<AddItemsBySeller> {
                     ),
                   ],
                 ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: "Title"),
-                  controller: _title,
-                  validator: (text){
-                    if(text.isNotEmpty)
-                      return null;
-                    else
-                      return "Value can't be blank";
-                  },
+                Container(
+                  padding: EdgeInsets.all(10),
+                  width:size.width*0.8,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Color(0xff2c98f0),width: 3)
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(hintText: "Title",border: InputBorder.none),
+                    controller: _title,
+                    validator: (text){
+                      if(text.isNotEmpty)
+                        return null;
+                      else
+                        return "Value can't be blank";
+                    },
+                  ),
                 ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: "Price",prefixIcon: Icon(FontAwesomeIcons.rupeeSign)),
-                  controller: _price,
-                  validator: (text){
-                    if((isFloat(text.trim())||isInt(text.trim()))&&text.isNotEmpty)
-                      return null;
-                    else
-                      return "Enter proper value";
-                  },
+                SizedBox(height: 10,),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  width:size.width*0.8,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Color(0xff2c98f0),width: 3)
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(hintText: "Price",prefixIcon: Icon(FontAwesomeIcons.rupeeSign),border: InputBorder.none),
+                    controller: _price,
+                    validator: (text){
+                      if((isFloat(text.trim())||isInt(text.trim()))&&text.isNotEmpty)
+                        return null;
+                      else
+                        return "Enter proper value";
+                    },
+                  ),
                 ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: "Description"),
-                  controller: _desc,
-                  validator: (text){
-                    if(text.isNotEmpty)
-                      return null;
-                    else
-                      return "Can't be empty";
-                  },
+                SizedBox(height: 10,),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  width:size.width*0.8,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Color(0xff2c98f0),width: 3)
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(hintText: "Description",border: InputBorder.none),
+                    controller: _desc,
+                    validator: (text){
+                      if(text.isNotEmpty)
+                        return null;
+                      else
+                        return "Can't be empty";
+                    },
+                  ),
                 ),
                 ElevatedButton(onPressed: (){
                   if(_imageFile==null){

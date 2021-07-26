@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:handicraft/data/alert_box.dart';
 import 'package:handicraft/sidebar/menu_item.dart';
 import 'package:handicraft/sidebar_navigation/navigation_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -149,14 +150,6 @@ class _SidebarState extends State<Sidebar> with SingleTickerProviderStateMixin<S
                               BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.MyOrdersClickedEvent);
                             },
                           ),
-                          MenuItem(
-                            icon: Icons.account_balance,
-                            title: "My Accounts",
-                            ontap: (){
-                              onIconPressed();
-                              BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.MyAccountsClickedEvent);
-                            },
-                          ),
                           Divider(
                             height: 64,
                             thickness: 0.5,
@@ -165,15 +158,16 @@ class _SidebarState extends State<Sidebar> with SingleTickerProviderStateMixin<S
                             endIndent: 32,
                           ),
                           MenuItem(
-                            icon: Icons.settings,
-                            title: "Settings",
-                          ),
-                          MenuItem(
                             icon: Icons.exit_to_app,
                             title: "Log out",
-                            ontap: ()async{
-                              await _googleSignIn.signOut().whenComplete((){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));
+                            ontap: (){
+                              void logout()async{
+                                await _googleSignIn.signOut().whenComplete((){
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));
+                                });
+                              }
+                              showDialog(context: context, builder: (_,){
+                                return CustomAlertBox(warning: "Logout",callback: logout,);
                               });
                             },
                           ),

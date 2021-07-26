@@ -1,3 +1,4 @@
+import 'package:handicraft/data/alert_box.dart';
 import 'package:handicraft/seller_screen/addselleritems.dart';
 import 'package:handicraft/auth/login.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,9 @@ class _SellerHomeState extends State<SellerHome> with TickerProviderStateMixin {
                   });
                 }
 
-                logout();
+                showDialog(context: context, builder: (_,){
+                  return CustomAlertBox(warning: "Logout ?",callback: logout,);
+                });
               })
         ],
         onTap: (index) {

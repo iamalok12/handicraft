@@ -16,37 +16,37 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> with TickerProviderStateMixin {
-  // FirebaseAuth _auth = FirebaseAuth.instance;
   GoogleSignIn _googleSignIn = GoogleSignIn();
   String type;
-  // SharedPreferences sharedPreferences;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: Colors.black12,
+        backgroundColor: Colors.white,
         body: AnimatedBackground(
           vsync: this,
           behaviour: BubblesBehaviour(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  image: AssetImage("images/logo.png"),
-                )),
-                height: height * 0.2,
-                width: height * 0.2,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: Container(
-                  height: height * 0.09,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.only(bottom: 100),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage("images/logo.png"),
+                  )),
+                  height: 60,
+                  width: 60,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Container(
+                  height: 60,
                   width: width * 0.6,
                   child: ElevatedButton(
                       onPressed: () {
@@ -105,24 +105,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                               print("empty");
                             }
                           }); //google sign
-                          // final GoogleSignInAuthentication authentication =
-                          // await account.authentication;
-                          //
-                          // final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-                          //     idToken: authentication.idToken,
-                          //     accessToken: authentication.accessToken);
-                          //
-                          // final UserCredential authResult =
-                          // await _auth.signInWithCredential(credential);
-                          // final User user = authResult.user;
-                          //
-                          // print(user);
                         }
-
                         signIn();
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xff282C31),
+                        primary: Color(0xff2c98f0),
                         elevation: 20,
                       ),
                       child: Text(
@@ -132,8 +119,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                         ),
                       )),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ));
   }

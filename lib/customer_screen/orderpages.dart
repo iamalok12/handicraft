@@ -29,7 +29,6 @@ class _OrdersPagesState extends State<OrdersPages> {
         backgroundColor: Colors.black87,
         elevation: 0,
         leading: CloseButton(),
-
       ),
       body: SingleChildScrollView(
         child: Column(

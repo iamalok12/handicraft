@@ -38,117 +38,80 @@ class _CustomerHomeState extends State<CustomerHome> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black87,
-      body: Column(
-        children: [
-          Container(
-            height: size.height * 0.2,
-            decoration: BoxDecoration(
-              color: Color(0xff282C31),
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(36),
-                  bottomRight: Radius.circular(36)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(0.0, 5),
-                  blurRadius: 6.0,
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  "Welcome !..",
-                    style: GoogleFonts.koHo(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 40)
-                ),
-                SizedBox(
-                  width: 30,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => CustomerCart(
-                                  cartCount: cartList,
-                                )));
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(5),
-                    height: 30,
-                    width: 70,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.white, width: 2)),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection("users")
-                                .where("email",
-                                    isEqualTo:
-                                        App.sharedPreferences.getString("email"))
-                                .snapshots(),
-                            builder: (context,
-                                AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                              void getCart() async {
-                                if (streamSnapshot.hasData) {
-                                  cartList = List.from(
-                                      streamSnapshot.data.docs[0]['cart']);
-                                }
+      appBar: AppBar(
+        backgroundColor: Color(0xff2c98f0),
+        title: Text("Products"),
+        centerTitle: true,
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                width: 30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => CustomerCart(
+                            cartCount: cartList,
+                          )));
+                },
+                child: Container(
+                  margin: EdgeInsets.all(5),
+                  height: 30,
+                  width: 70,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.white, width: 2)),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection("users")
+                              .where("email",
+                              isEqualTo:
+                              App.sharedPreferences.getString("email"))
+                              .snapshots(),
+                          builder: (context,
+                              AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                            void getCart() async {
+                              if (streamSnapshot.hasData) {
+                                cartList = List.from(
+                                    streamSnapshot.data.docs[0]['cart']);
                               }
+                            }
 
-                              getCart();
-                              return !streamSnapshot.hasData
-                                  ? CircularProgressIndicator()
-                                  : Text(
-                                      cartList.length.toString(),
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    );
-                            },
-                          ),
-                          // cartLength==null?LinearProgressIndicator():Text(cartLength,style: TextStyle(color: Colors.white,fontSize: 20),),
-                          Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
-                          )
-                        ],
-                      ),
+                            getCart();
+                            return !streamSnapshot.hasData
+                                ? CircularProgressIndicator()
+                                : Text(
+                              cartList.length.toString(),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 20),
+                            );
+                          },
+                        ),
+                        // cartLength==null?LinearProgressIndicator():Text(cartLength,style: TextStyle(color: Colors.white,fontSize: 20),),
+                        Icon(
+                          Icons.shopping_cart,
+                          color: Colors.white,
+                        )
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Container(
-            margin: EdgeInsets.only(
-              top: 25,
-              bottom: 25,
-            ),
-            height: 24,
-            child: Stack(
-              children: [
-                Text(
-                  "Featured Products",
-                    style: GoogleFonts.koHo(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20)
-                ),
-                Positioned(
-                  right: 0,
-                  left: 0,
-                  bottom: 0,
-                  child: Container(
-                    height: 7,
-                    color: Color(0xff282C31).withOpacity(0.3),
-                  ),
-                )
-              ],
-            ),
-          ),
+        ],
+      ),
+      backgroundColor:Colors.white,
+      body: Column(
+        children: [
           Expanded(
               child: StreamBuilder(
             stream: FirebaseFirestore.instance.collection("Items").snapshots(),

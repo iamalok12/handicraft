@@ -53,9 +53,10 @@ class _OrdersArrivedState extends State<OrdersArrived> {
           data.docs[i].data()['time']);
 
       list.add(item);
+      if (!mounted) return;
+      setState(() {});
     }
-    if (!mounted) return;
-    setState(() {});
+
     print(list.length);
   }
 
@@ -67,31 +68,24 @@ class _OrdersArrivedState extends State<OrdersArrived> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SafeArea(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff2c98f0),
+        title: Text(
+          "Orders",
+          style: GoogleFonts.koHo(
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2,
+              fontSize: 30,
+              color: Colors.white),
+        ),
+        centerTitle: true,
+      ),
+      body: SafeArea(
         child: RefreshIndicator(
           onRefresh: fetchOrders,
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: Color(0xff282C31),
-                      child: Center(
-                        child: Text(
-                          "ORDERS",
-                          style: GoogleFonts.koHo(
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 2,
-                              fontSize: 38,
-                              color: Colors.white38),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               Expanded(
                 child: Container(
                   child: list.length == 0
@@ -147,11 +141,10 @@ class _OrdersArrivedState extends State<OrdersArrived> {
     print(pincode);
 
     return Container(
-      // color: Colors.black,
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xff282C31),
+          color: Color(0xff2c98f0),
           border: Border.all(color: Colors.black),
           boxShadow: [
             BoxShadow(
@@ -358,28 +351,23 @@ class _ItemModifyState extends State<ItemModify> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Container(
-        color: Colors.black,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff2c98f0),
+        title: Text(
+          "Edit Items",
+          style: GoogleFonts.koHo(
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2,
+              fontSize: 30,
+              color: Colors.white),
+        ),
+        centerTitle: true,
+      ),
+      body: Container(
+        color: Colors.white,
         child: Column(
           children: [
-            ClipPath(
-              clipper: OvalBottomBorderClipper(),
-              child: Container(
-                  color: Color(0xff282C31),
-                  height: 50,
-                  width: size.width,
-                  child: Center(
-                    child: Text(
-                      "Edit",
-                      style: GoogleFonts.pattaya(
-                        color: Colors.white,
-                        fontSize: 46,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )),
-            ),
             Expanded(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
@@ -390,7 +378,7 @@ class _ItemModifyState extends State<ItemModify> {
                 builder:
                     (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                   return !streamSnapshot.hasData
-                      ? CircularProgressIndicator()
+                      ? Center(child: CircularProgressIndicator())
                       : ListView.builder(
                           itemCount: streamSnapshot.data.docs.length,
                           itemBuilder: (_, index) {
@@ -421,7 +409,7 @@ class _ItemModifyState extends State<ItemModify> {
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xff282C31),
+          color:  Color(0xff2c98f0),
           border: Border.all(color: Colors.black),
           boxShadow: [
             BoxShadow(

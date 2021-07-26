@@ -6,7 +6,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:handicraft/auth/login.dart';
 import 'package:handicraft/betaPage.dart';
 import 'package:handicraft/seller_screen/sellerhome.dart';
-import 'package:handicraft/customer_screen/customerhome.dart';
 import 'package:handicraft/sidebar/sidebar_layout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,8 +17,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   GoogleSignIn _googleSignIn=GoogleSignIn(scopes: ['email']);
   String type;
-  // SharedPreferences sharedPreferences;
-
   @override
   void initState() {
     super.initState();
@@ -73,15 +70,14 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           Container(
-            child: Center(child: Text("Handicraft",style: TextStyle(fontSize: height*0.08,fontFamily: "Pacifico"),)),
+            child: Center(child: Text("Handicraft",style: TextStyle(fontSize: 40,fontFamily: "Pacifico"),)),
             decoration: BoxDecoration(
                    color: Colors.white54,
               borderRadius: BorderRadius.circular(10)
             ),
             margin: EdgeInsets.only(top:height*0.15 ),
-            height: 100,
             width: width*0.8,
-
+            height: 100,
           )
         ],
       ),
